@@ -1,0 +1,63 @@
+.headerContainer {}
+
+.divBackground {
+  height: 145px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    position: relative;
+    bottom: 50%;
+  }
+}
+
+.divImgButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -80px;
+  position: relative;
+  button {
+    border: 0;
+    overflow: hidden;
+    height: 11rem;
+
+    border-radius: 50%;
+
+    img {
+      height: 11rem;
+      border: 6px solid white;
+
+      border-radius: 50%;
+
+    }
+  }
+}
+.divButtonsHeader{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -80px;
+  margin-bottom: 54px;
+  section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.divTextPage{
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  h1{
+    text-align: center;
+  }
+  p{
+    text-align: center;
+  }
+
+}
+.divButtonSeeMore{
+  padding: 1rem;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+}

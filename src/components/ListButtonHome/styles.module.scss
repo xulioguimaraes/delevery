@@ -1,0 +1,14 @@
+.mainContainer {
+  display: flex;
+  justify-content: center;
+  height: 52vh;
+}
+
+.mainContent {
+  max-width: 1200px;
+  background-color: #333333;
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}

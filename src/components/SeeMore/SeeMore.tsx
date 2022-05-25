@@ -1,25 +1,44 @@
 import { Button, Collapse, List, ListItemButton, ListItemIcon, ListItemText, Stack } from "@mui/material"
 import { Box } from "@mui/system"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { FaMapMarkerAlt, FaPhoneAlt, FaWhatsapp } from "react-icons/fa"
 import { IoIosArrowDown, IoIosArrowUp, IoIosRedo } from "react-icons/io"
+import { AppTypes, } from "../../interfaces/dataInterfaces"
 interface SeeMoreProps {
     handleSeeMore: boolean
+    infoPage: AppTypes
 }
 import styles from "./styles.module.scss"
 
-export const SeeMore = ({ handleSeeMore }: SeeMoreProps) => {
+export const SeeMore = ({ handleSeeMore, infoPage }: SeeMoreProps) => {
+    const { config, info } = infoPage
+
     const [open, setOpen] = useState(false);
-    const daysWeek = [
-        "Domingo das 08:00 até 23:59",
-        "Segunda das 08:00 até 23:59",
-        "Terça das 08:00 até 23:59",
-        "Quarta das 08:00 até 23:59",
-        "Quinta das 08:00 até 10:00",
-        "Sexta das 08:00 até 18:00",
-        "Sábado das 08:00 até 23:59"
+    const daysWeeks = [
+        { day: "Domingo das ", time: "" },
+        { day: "Segunda das ", time: "" },
+        { day: "Terça das ", time: "" },
+        { day: "Quarta das ", time: "" },
+        { day: "Quinta das", time: "" },
+        { day: "Sexta das ", time: "" },
+        { day: "Sábado das ", time: "" },
     ]
     const today = new Date().getDay()
+    const [daysWeek, setDaysWeek] = useState<string[]>([])
+
+    useEffect(() => {
+       const days =  config.opening.map(item=>{
+           const aux = daysWeeks.filter((itemDays, index)=>{
+               if (index === item.weekday) {
+                   return itemDays
+               }
+           })
+        const text = `${aux[0].day} ${item.start} as ${item.end}`
+           return text
+        })
+        setDaysWeek(days)
+        
+    }, [config])
 
 
     const handleClick = () => {
@@ -33,7 +52,7 @@ export const SeeMore = ({ handleSeeMore }: SeeMoreProps) => {
                 alignItems="center"
                 justifyContent="center"
                 spacing={2}
-            
+
                 className={styles.divButtonSeeMore}>
                 <Button startIcon={<FaMapMarkerAlt />}>Rotas</Button>
                 <Button startIcon={<IoIosRedo />}>Compartilhar</Button>
@@ -47,7 +66,7 @@ export const SeeMore = ({ handleSeeMore }: SeeMoreProps) => {
                 width="100%"
                 borderBottom="1px solid white">
                 <Box display="flex" gap={1}>
-                    <strong>Endereço: </strong><span> Rua Maranhão, 242 - Vila Célia, Campo Grande</span>
+                    <strong>Endereço: </strong><span> {info.formatted} </span>
                 </Box>
                 <Box display="flex" gap={1}>
                     <List
@@ -74,12 +93,14 @@ export const SeeMore = ({ handleSeeMore }: SeeMoreProps) => {
                         </Collapse>
                     </List>
                 </Box>
-                <Box display="flex" gap={1}>
-                    <strong>Telefone: </strong><span>(67) 984746428</span>
-                </Box>
-                <Box display="flex" gap={1}>
-                    <strong>WhatsApp: </strong><span> (67) 98541654</span>
-                </Box>
+                {!info.show_whatsapp && <Box display="flex" gap={1}>
+                    <strong>WhatsApp: </strong><span> {info.whatsapp}</span>
+                </Box>}
+                {!info.show_phone && <Box display="flex" gap={1}>
+                    <strong>Telefone: </strong><span>{info.phone}</span>
+                </Box>}
+
+
             </Stack>
         </Collapse>
 

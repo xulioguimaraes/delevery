@@ -10,7 +10,11 @@ import { IoIosArrowDown, IoIosArrowUp, IoIosRedo } from "react-icons/io";
 import { BiChevronsLeft } from "react-icons/bi";
 import { SeeMore } from '../SeeMore/SeeMore';
 import { DialogSignin } from "../DialogSignin/DialogSignin"
-export const Header = () => {
+import { AppTypes } from '../../interfaces/dataInterfaces';
+interface HeaderProps {
+  infoPage: AppTypes
+}
+export const Header = ({infoPage}: HeaderProps) => {
   const [handleSeeMore, setHandleSeeMore] = useState(false)
   const [handle, setHandle] = useState(false)
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -42,12 +46,12 @@ export const Header = () => {
       <div className={styles.headerContent}>
         <div className={styles.divBackground}>
 
-          <img src="https://storage.googleapis.com/zap-delivery-285220.appspot.com/stores/E088DYPxiqrnFisjf8Ri3zC6E/9S4HfwJ6Oi_820x312.png" alt="" />
+          <img src={infoPage.media.cover} alt="Capa da pagina" />
         </div>
         <div className={styles.divImgButton}>
-          <Link href='/teste'>
+          <Link href='/'>
             <button>
-              <img src="https://storage.googleapis.com/zap-delivery-285220.appspot.com/stores/E088DYPxiqrnFisjf8Ri3zC6E/wT1HnpbT9u_640x640.jpeg" alt="" />
+              <img src={infoPage.media.logo} alt="Logo" />
             </button>
           </Link>
         </div>
@@ -90,15 +94,15 @@ export const Header = () => {
         </div>
         <div className={styles.divTextPage}>
           <h1>
-            Kawaii Sushi
+           {infoPage.name}
           </h1>
           <p>
-            Sushi delicioso e divertido. O mais fofo sushi de Campo Grande MS.. Não da pra comer triste!
+           {infoPage.description}
           </p>
           <Stack alignItems="center">
             <Button endIcon={handleSeeMore ? <IoIosArrowDown /> : <IoIosArrowUp />} onClick={() => setHandleSeeMore(!handleSeeMore)}>Ver mais</Button>
 
-            <SeeMore handleSeeMore={handleSeeMore} />
+            <SeeMore handleSeeMore={handleSeeMore} infoPage={infoPage}/>
 
 
           </Stack>

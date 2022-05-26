@@ -1,5 +1,6 @@
 export interface CatalogTypes {
     name: string,
+    id: string
     methods: [string],
     order: number,
     visible: boolean,
@@ -8,10 +9,11 @@ export interface CatalogTypes {
 export interface ItensCatalogTypes {
     name: string
     visible: boolean
+    id: string
     thumb: string
-    price_promo: number
+    price_promo: number | string
     image: string
-    price: number
+    price: number | string
     description: string
     order: number
     methods: [string]

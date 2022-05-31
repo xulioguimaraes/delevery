@@ -24,7 +24,7 @@ export interface AttributesItensCatalogTypes {
     visible: boolean,
     order: number,
     name: string,
-    qty: [number],
+    qty: number[],
     id: string
 }
 export interface ProductsProps {

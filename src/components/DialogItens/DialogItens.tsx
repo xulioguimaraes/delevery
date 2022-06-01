@@ -1,13 +1,17 @@
-import { Box, Button, CardMedia, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Stack, Typography } from "@mui/material"
+import { Box, Button, CardMedia, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Stack, TextField, Typography } from "@mui/material"
+import { useState } from "react"
 import { IoMdAdd, IoMdRemove } from "react-icons/io"
 import { ItensCatalogTypes } from "../../interfaces/dataInterfaces"
-interface DialogItensProps{
+interface DialogItensProps {
     modalItens: boolean
-    handleClose: ()=>void
+    handleClose: () => void
     itemModalHandle: ItensCatalogTypes | undefined
 }
 
-export const DialogItens = ({modalItens, handleClose, itemModalHandle}: DialogItensProps) => {
+export const DialogItens = ({ modalItens, handleClose, itemModalHandle }: DialogItensProps) => {
+    console.log(itemModalHandle);
+    
+    const [itens, setItens] = useState()
     return (
         <Dialog
             open={modalItens}
@@ -38,7 +42,9 @@ export const DialogItens = ({modalItens, handleClose, itemModalHandle}: DialogIt
             {itemModalHandle?.attributes.map(item => {
                 return <DialogContent key={item.id}>
                     <Divider />
-                    <Typography component="h1">
+                    <Typography
+                        pt={2}
+                        component="h1">
                         {item.name}
                     </Typography>
                     <Typography component="p">
@@ -53,12 +59,25 @@ export const DialogItens = ({modalItens, handleClose, itemModalHandle}: DialogIt
                                     {ev.name}
                                 </Typography>
                                 <Box >
-                                    <Button sx={{ minWidth: "15px", p: "9px" }} variant="contained" color="error" size="large"><IoMdRemove /></Button>
-                                    <Typography component="span" px={2}>
+                                    <Button
+                                        sx={{ minWidth: "15px", p: "9px" }}
+                                        variant="contained"
+                                        color="error"
+                                        size="large">
+                                        <IoMdRemove />
+                                    </Button>
+                                    <Typography
+                                        component="span"
+                                        px={2}>
                                         0
                                     </Typography>
-                                    <Button sx={{ minWidth: "15px", p: "9px" }} variant="contained" color="success" size="large" ><IoMdAdd /></Button>
-
+                                    <Button
+                                        sx={{ minWidth: "15px", p: "9px" }}
+                                        variant="contained"
+                                        color="success"
+                                        size="large" >
+                                        <IoMdAdd />
+                                    </Button>
                                 </Box>
                             </Stack>
                         })}
@@ -66,13 +85,42 @@ export const DialogItens = ({modalItens, handleClose, itemModalHandle}: DialogIt
                 </DialogContent>
 
             })}
-
-            <DialogActions>
-                <Button onClick={handleClose}>Disagree</Button>
-                <Button onClick={handleClose} autoFocus>
-                    Agree
-                </Button>
-            </DialogActions>
+            <DialogContent>
+                <Divider sx={{ mb: 2 }} />
+                <TextField
+                    fullWidth
+                    id="outlined-multiline-static"
+                    label="Observação"
+                    multiline
+                    rows={2}
+                />
+                <DialogActions>
+                    <Box
+                        pr={2}>
+                        <Button
+                            sx={{ minWidth: "15px", p: "9px" }}
+                            variant="contained"
+                            size="large">
+                            <IoMdRemove />
+                        </Button>
+                        <Typography
+                            component="span"
+                            px={2}>
+                            0
+                        </Typography>
+                        <Button
+                            sx={{ minWidth: "15px", p: "9px" }}
+                            variant="contained"
+                            size="large" >
+                            <IoMdAdd />
+                        </Button>
+                    </Box>
+                    <Button startIcon={<IoMdAdd />} variant="contained" onClick={handleClose} autoFocus>
+                        Adicionar R$ 20,00
+                    </Button>
+                </DialogActions>
+            </DialogContent>
+           
         </Dialog>
     )
 }

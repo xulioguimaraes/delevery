@@ -1,13 +1,11 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Card, CardActionArea, CardContent, CardMedia, Collapse, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, FormControl, ImageList, List, Stack, TextField, Typography } from "@mui/material"
+import { Container } from "@mui/material"
 import axios from "axios";
 import { GetServerSideProps, NextPage } from "next"
 import Head from "next/head";
-import { useEffect, useState } from "react";
-import { BsFillMicFill } from "react-icons/bs";
-import { FaShoppingCart } from "react-icons/fa";
+import { useState } from "react";
+
 import { Header } from "../../components/Header/Header";
 import { AppTypes, CatalogTypes, ItensCatalogTypes, ProductsProps } from "../../interfaces/dataInterfaces";
-import { IoMdAdd, IoMdRemove } from "react-icons/io";
 import { Spotlight } from "../../components/Spotlight/Spotlight";
 import { Catalog } from "../../components/Catalog/Catalog";
 import { NavSearch } from "../../components/NavSearch/NavSearch";
@@ -24,12 +22,9 @@ interface PageDeliveryProps {
 export default function RetirarLocal({ page }: PageDeliveryProps) {
 
     const { app, spotlight, catalog } = page
-    console.log(catalog)
-    const [arrayCatalog, setArrayCatalog] = useState<CatalogTypes[]>([])
     const [modalItens, setModalItens] = useState(false)
     const [itemModalHandle, setItemModalHandle] = useState<ItensCatalogTypes>()
     const handleItemCatalog = (item: ItensCatalogTypes) => {
-
         setItemModalHandle(item)
         setModalItens(true)
     }
@@ -47,8 +42,11 @@ export default function RetirarLocal({ page }: PageDeliveryProps) {
                 <Spotlight spotlight={spotlight} handleItemCatalog={handleItemCatalog} />
                 <Catalog catalog={catalog} handleItemCatalog={handleItemCatalog} />
             </Container>
-            <NavSearch />
-            <DialogItens modalItens={modalItens} handleClose={handleClose} itemModalHandle={itemModalHandle} />
+            <NavSearch catalog={catalog}/>
+            <DialogItens
+                modalItens={modalItens}
+                handleClose={handleClose}
+                itemModalHandle={itemModalHandle} />
 
         </>
     )

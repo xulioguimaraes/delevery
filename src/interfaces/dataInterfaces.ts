@@ -1,4 +1,5 @@
 export interface CatalogTypes {
+    expanded?: boolean
     name: string,
     id: string
     methods: [string],
@@ -141,8 +142,8 @@ export interface AnalyticsConfigAppTypes {
     googleAnalytics: string
 }
 export interface ThemeColorConfigAppTypes {
-    nightmode: [string]
-    default: [string]
+    nightmode: string[]
+    default: string[]
 }
 export interface MinimumConfigAppTypes {
     drivethru: string

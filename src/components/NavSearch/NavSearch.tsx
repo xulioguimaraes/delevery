@@ -153,7 +153,8 @@ export const NavSearch = ({ catalog }: NavSearchProps) => {
                         </Search>
                         <Box sx={{ flexGrow: 1 }} />
                         <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
-                            <IconButton
+                            <IconButton 
+                                
                                 size="large"
                                 edge="end"
                                 aria-label="account of current user"

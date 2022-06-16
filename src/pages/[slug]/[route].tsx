@@ -1,29 +1,37 @@
-import { Container } from "@mui/material"
+import { Container, CssBaseline, useTheme } from "@mui/material"
 import axios from "axios";
 import { GetServerSideProps, NextPage } from "next"
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Header } from "../../components/Header/Header";
-import { AppTypes, CatalogTypes, ItensCatalogTypes, ProductsProps } from "../../interfaces/dataInterfaces";
+import { AppTypes, CatalogTypes, ItensCatalogTypes, ProductsProps, ThemeColorConfigAppTypes } from "../../interfaces/dataInterfaces";
 import { Spotlight } from "../../components/Spotlight/Spotlight";
 import { Catalog } from "../../components/Catalog/Catalog";
 import { NavSearch } from "../../components/NavSearch/NavSearch";
 import { DialogItens } from "../../components/DialogItens/DialogItens";
+import {  useThemes } from "../../context/useTheme";
 interface PageDeliveryProps {
     page: {
         app: AppTypes
         slug: string
         catalog: CatalogTypes[]
         spotlight: ItensCatalogTypes[]
+        themesColor: ThemeColorConfigAppTypes
     }
 }
 
 export default function RetirarLocal({ page }: PageDeliveryProps) {
+    console.log(page);
 
-    const { app, spotlight, catalog } = page
+    const { app, spotlight, catalog, themesColor } = page
+    const {  setColors } = useThemes()
+    const theme = useTheme()
     const [modalItens, setModalItens] = useState(false)
     const [itemModalHandle, setItemModalHandle] = useState<ItensCatalogTypes>()
+    useEffect(() => {
+        setColors(themesColor)
+    }, [page])
     const handleItemCatalog = (item: ItensCatalogTypes) => {
         setItemModalHandle(item)
         setModalItens(true)
@@ -37,12 +45,14 @@ export default function RetirarLocal({ page }: PageDeliveryProps) {
             <Head>
                 <title>Retirar | {`${app.name}`}</title>
             </Head>
+            <CssBaseline/>
+
             <Header infoPage={app} />
-            <Container maxWidth="lg" component="main" sx={{ backgroundColor: "#333", pb: "75px" }}>
+            <Container maxWidth="lg" component="main" sx={{ backgroundColor: theme.palette.background.paper, pb: "75px" }}>
                 <Spotlight spotlight={spotlight} handleItemCatalog={handleItemCatalog} />
                 <Catalog catalog={catalog} handleItemCatalog={handleItemCatalog} />
             </Container>
-            <NavSearch catalog={catalog}/>
+            <NavSearch catalog={catalog} />
             <DialogItens
                 modalItens={modalItens}
                 handleClose={handleClose}
@@ -57,7 +67,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         return item.data
     }) as ProductsProps
     const { slug, route }: any = params
-
+    const themesColor = product.app.config.theme_color
     const exists = product.app.config.methods.some(item => item === route)
 
 
@@ -103,7 +113,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         slug,
         catalog,
         spotlight,
-
+        themesColor
     }
     return {
         props: {

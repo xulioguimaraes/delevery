@@ -111,7 +111,8 @@ export const DialogNavSearch = ({ open, handleClose, catalog, total }: DialogNav
     }
     return (
         <>
-            <Dialog
+            <Dialog 
+                
                 open={open}
                 TransitionComponent={Transition}
                 keepMounted
@@ -239,21 +240,21 @@ export const DialogNavSearch = ({ open, handleClose, catalog, total }: DialogNav
                     </TabPanel>
                     <TabPanel value={value} index={1}>
                         <DialogTitle
-                            sx={{ paddingX: 0, py:"12px" }}
+                            sx={{ paddingX: 0, py: "12px" }}
                             id="Content ticket input"
                             component="section"
                             display="flex"
                             justifyContent="space-between"
                             lineHeight={0}>
                             <Box display="flex" mx={1} width="100%" >
-                                <IconButton 
-                                onClick={() => handleChange2(0)}
-                                size='large' 
-                                sx={{ fontSize: "2.5rem", p: 0 }}>
+                                <IconButton
+                                    onClick={() => handleChange2(0)}
+                                    size='large'
+                                    sx={{ fontSize: "2.5rem", p: 0 }}>
                                     <FaChevronLeft />
                                 </IconButton>
                                 <TextField fullWidth id="outlined-basic" label="Digite o código" variant="outlined" />
-                                <Button  sx={{minWidth: "210px"}} size='large' variant="outlined" startIcon={<FaTicketAlt />}>Aplicar cupom</Button>
+                                <Button sx={{ minWidth: "210px" }} size='large' variant="outlined" startIcon={<FaTicketAlt />}>Aplicar cupom</Button>
                             </Box>
                         </DialogTitle>
                     </TabPanel>
@@ -275,10 +276,10 @@ export const DialogNavSearch = ({ open, handleClose, catalog, total }: DialogNav
                     </Box>
                 </DialogTitle>
                 <DialogActions sx={{ justifyContent: "center" }}>
-                    <Button fullWidth variant='contained' startIcon={<FaShoppingCart />} onClick={handleClose}>Continuar comprando</Button>
-                    <Button fullWidth variant='contained' onClick={handleClose}>Finalizar pedido</Button>
+                    <Button color="secondary" fullWidth variant='contained' startIcon={<FaShoppingCart />} onClick={handleClose}>Continuar comprando</Button>
+                    <Button color="secondary" fullWidth variant='contained' onClick={handleClose}>Finalizar pedido</Button>
                 </DialogActions>
-               
+
             </Dialog>
 
 

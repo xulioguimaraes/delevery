@@ -160,7 +160,7 @@ export const DialogItens = ({ modalItens, handleClose, itemModalHandle }: Dialog
                             <IoMdAdd />
                         </Button>
                     </Box>
-                    <Button startIcon={<IoMdAdd />} variant="contained" onClick={handleCart} autoFocus>
+                    <Button startIcon={<IoMdAdd />} variant="contained" color="secondary" onClick={handleCart} autoFocus>
                         Adicionar {price}
                     </Button>
                 </DialogActions>

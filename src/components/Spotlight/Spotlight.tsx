@@ -1,22 +1,35 @@
 
-import { Box, Card, CardActionArea, CardContent, CardMedia, Container, Stack, Typography } from "@mui/material"
+import { Box, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Stack, Typography, useTheme } from "@mui/material"
 import { ItensCatalogTypes } from "../../interfaces/dataInterfaces"
 interface SpotlightProps {
     spotlight: ItensCatalogTypes[]
     handleItemCatalog: (item: ItensCatalogTypes) => void
 }
 export const Spotlight = ({ spotlight, handleItemCatalog }: SpotlightProps) => {
+    const theme = useTheme()
     return (
         <>
             <Box>
                 <Container component="section">
                     <Box>
                         <Box component="section" display="flex">
-                            <Typography component="h1" px={2} py={1} borderRadius="5px" bgcolor="#FF9900">Aberto</Typography>
+                            <Typography
+                                component="h1"
+                                px={2}
+                                py={.6}
+                                borderRadius="5px"
+                                bgcolor="#FF9900"
+                                fontWeight="bold"
+                            >Aberto
+                            </Typography>
                         </Box>
                     </Box>
 
-                    <Typography component="h1">
+                    <Typography
+                        component="h1"
+                        fontWeight="bold"
+                        py={1.6}
+                        fontSize="1.5rem">
                         Destaques
                     </Typography>
                     <Stack
@@ -25,10 +38,17 @@ export const Spotlight = ({ spotlight, handleItemCatalog }: SpotlightProps) => {
                         sx={{ overflowX: "scroll" }}>
                         {spotlight.map(item => {
                             return <Card
+
                                 key={item.id}
-                                sx={{ maxWidth: 245, minWidth: 220 }}
+                                sx={{
+                                    position: "relative",
+                                    maxWidth: 245,
+                                    minWidth: 210
+                                }}
                                 onClick={() => handleItemCatalog(item)}>
-                                <CardActionArea >
+                                <CardActionArea sx={{
+                                    mb: 3
+                                }}>
                                     <CardMedia
                                         component="img"
                                         height="140"
@@ -38,7 +58,8 @@ export const Spotlight = ({ spotlight, handleItemCatalog }: SpotlightProps) => {
                                     <CardContent>
                                         <Typography
                                             gutterBottom
-                                            variant="h5"
+                                            fontSize="1.2rem"
+                                            variant="h6"
                                             component="div">
                                             {item.name}
                                         </Typography>
@@ -47,24 +68,32 @@ export const Spotlight = ({ spotlight, handleItemCatalog }: SpotlightProps) => {
                                             color="text.secondary">
                                             {item.description}
                                         </Typography>
-                                        <Box
-                                            display="flex"
-                                            gap={1}>
-                                            <Typography
-                                                variant="body2"
-                                                color="text.primary">
-                                                {item.price_promo}
-                                            </Typography>
-                                            <Typography
-                                                sx={{ textDecoration: "line-through" }}
-                                                variant="body2"
-                                                color="text.secondary">
-                                                {item.price}
-                                            </Typography>
-                                        </Box>
-
                                     </CardContent>
                                 </CardActionArea>
+                                <CardActions
+                                    disableSpacing
+                                    sx={{
+                                       
+                                        position: "absolute",
+                                        bottom: 0
+                                    }}>
+                                    <Box
+                                        display="flex"
+                                        gap={1}>
+                                        <Typography
+                                            variant="body2"
+                                            fontWeight="bold"
+                                            color="primary">
+                                            {item.price_promo}
+                                        </Typography>
+                                        <Typography
+                                            sx={{ textDecoration: "line-through" }}
+                                            variant="body2"
+                                            color="text.secondary">
+                                            {item.price}
+                                        </Typography>
+                                    </Box>
+                                </CardActions>
                             </Card>
                         })}
                     </Stack>

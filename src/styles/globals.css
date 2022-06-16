@@ -26,8 +26,8 @@
   --yellow-500: #eba417;
 }
 body {
-  background: var(--gray-900);
-  color: var(--white);
+  /* background: var(--gray-900); */
+  /* color: var(--white); */
 }
 body,
 input,

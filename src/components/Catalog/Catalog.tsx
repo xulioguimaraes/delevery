@@ -1,25 +1,52 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Card, CardContent, CardMedia, Container, Stack, Typography } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Box, Card, CardContent, CardMedia, Container, Stack, Typography, useTheme } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { CatalogTypes, ItensCatalogTypes } from '../../interfaces/dataInterfaces'
+import { useEffect, useState } from 'react';
 interface CatalogProps {
     catalog: CatalogTypes[]
     handleItemCatalog: (item: ItensCatalogTypes) => void
 }
 
+
 export const Catalog = ({ catalog, handleItemCatalog }: CatalogProps) => {
+    const theme = useTheme()
+    const [catalogExpand, setCatalogExpand] = useState<CatalogTypes[]>([])
+    const handleChange =(id: string)=>{
+        const catalogExpandAux = catalog.map(item => {
+            if (item.id === id) {
+                item.expanded =  !item.expanded
+                return item
+            }
+            return item
+        })
+        setCatalogExpand(catalogExpandAux)
+    }
+    useEffect(() => {
+        const catalogExpandAux = catalog.map(item => {
+            item.expanded = true
+            return item
+        })
+        setCatalogExpand(catalogExpandAux)
+    }, [catalog])
     return (
         <>
             <Box>
                 <Container component="section">
                     <Stack mt={2} mb={2}>
-                        {catalog.map(item => {
+                        {catalogExpand.map((item, index) => {
                             return <Accordion
-                                key={item.id}
-                                sx={{
-                                    bgcolor: "#000",
-                                    color: "#FFF"
-                                }} >
+                            sx={{
+                                boxShadow:0
+                            }}
+                                expanded={item.expanded}
+                                onChange={()=>handleChange(item.id)}
+                                key={item.id}>
                                 <AccordionSummary
+                                    sx={{
+                                       "::before":{backgroundColor: "none"},
+                                        borderRadius: item.expanded ? 4: 0,
+                                        backgroundColor: theme.palette.background.default
+                                    }}
                                     expandIcon={<ExpandMoreIcon
                                         color="primary" />}
                                     aria-controls={item.name}
@@ -30,6 +57,7 @@ export const Catalog = ({ catalog, handleItemCatalog }: CatalogProps) => {
                                 <AccordionDetails>
                                     <Stack
                                         gap={2}
+                                        mt={1}
                                         direction={["column", "row"]}
                                         spacing={2}
                                         justifyContent="center">

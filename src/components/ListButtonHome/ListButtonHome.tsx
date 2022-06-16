@@ -1,6 +1,6 @@
 import { BsGridFill } from 'react-icons/bs'
 import { FaBox, FaCarAlt, FaMotorcycle } from 'react-icons/fa'
-import { Button, Stack } from '@mui/material'
+import { Box, Button, Container, Stack, Typography, useTheme } from '@mui/material'
 import styles from "./styles.module.scss"
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -15,13 +15,13 @@ interface OptionsButtonsTypes {
     icon: JSX.Element
 }
 export const ListButtonHome = ({ infoButtons, slug }: ListButtonHomeProps) => {
-   
+
     const [optionsButtons, setOptionsButtons] = useState<OptionsButtonsTypes[]>([])
-    
-    
+    const theme = useTheme()
+
     useEffect(() => {
         const buttons = [
-            { link: "balcony", label: "Retirar no local", icon: <FaBox /> },
+            { link: "balcony", label: "Retirar no local", icon: <FaBox color='' /> },
             { link: "delivery", label: "Delivery", icon: <FaMotorcycle /> },
             { link: "drivethru", label: "Drive Thru", icon: <FaCarAlt /> },
             { link: "table", label: "Estou na mesa", icon: <BsGridFill /> },
@@ -35,17 +35,39 @@ export const ListButtonHome = ({ infoButtons, slug }: ListButtonHomeProps) => {
         setOptionsButtons(aux)
     }, [infoButtons])
     return (
-        <main className={styles.mainContainer}>
-            <div className={styles.mainContent}>
-                <Stack spacing={2} maxWidth="320px">
+        <Box
+            display="flex"
+            justifyContent="center"
+            height="52vh"
+        >
+            <Container sx={{
+                width: "100%",
+                display: "grid",
+                justifyContent: "center",
+                alignItems: "center",
+                bgcolor: theme.palette.background.paper
+            }}>
+                <Stack spacing={2} >
                     {optionsButtons.map(item => {
                         return <Link href={`/${slug}/${item.link}`} key={item.link}>
-                            <Button size='large' startIcon={item.icon} variant="outlined">{item.label}</Button>
+                            <Button
+                            fullWidth
+                                size='large'
+                                sx={{borderColor: "text.primary"}}
+                                startIcon={item.icon}
+                                variant="outlined">
+                                <Typography
+                                    textTransform="capitalize"
+                                    component="span"
+                                    color="text.primary" >
+                                    {item.label}
+                                </Typography>
+                            </Button>
                         </Link>
                     })}
                 </Stack>
-            </div>
+            </Container>
 
-        </main>
+        </Box>
     )
 }

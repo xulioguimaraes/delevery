@@ -1,5 +1,5 @@
 
-import { alpha, AppBar, Badge, Box, IconButton, InputBase, styled, Toolbar, Typography } from '@mui/material'
+import { alpha, AppBar, Badge, Box, IconButton, InputBase, styled, Toolbar, Typography, useTheme } from '@mui/material'
 import { useEffect, useState } from 'react';
 
 import { BsBox, BsFillMicFill, BsSearch } from 'react-icons/bs'
@@ -7,7 +7,7 @@ import { FaShoppingCart } from 'react-icons/fa';
 
 import { useDataCart } from '../../context/useDataCart';
 
-import { CatalogTypes } from '../../interfaces/dataInterfaces';
+import { CatalogTypes, PaymentsConfigAppTypes } from '../../interfaces/dataInterfaces';
 import { DialogNavSearch } from '../DialogNavSearch/DialogNavSearch';
 
 
@@ -32,32 +32,32 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
     position: 'absolute',
     pointerEvents: 'none',
     display: 'flex',
+    color: theme.palette.text.secondary,
     alignItems: 'center',
     justifyContent: 'center',
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
+    color: theme.palette.text.secondary,
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
         // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create('width'),
         width: '100%',
-        //   [theme.breakpoints.up('md')]: {
-        //     width: '20ch',
-        //   },
     },
 }));
 interface NavSearchProps {
     catalog: CatalogTypes[]
+    payments: PaymentsConfigAppTypes
 }
 
 
-export const NavSearch = ({ catalog }: NavSearchProps) => {
+export const NavSearch = ({ catalog, payments }: NavSearchProps) => {
     const [open, setOpen] = useState(false);
     const [qtdProductCart, setQtdProductCart] = useState(0)
     const { cart } = useDataCart()
+    const theme = useTheme()
     const [total, setTotal] = useState("")
     useEffect(() => {
         const totalPrice = cart.map(item => {
@@ -82,6 +82,7 @@ export const NavSearch = ({ catalog }: NavSearchProps) => {
     return (
         <>
             <Box
+                zIndex={777}
                 width="100%"
                 position="fixed"
                 display="flex"
@@ -92,7 +93,6 @@ export const NavSearch = ({ catalog }: NavSearchProps) => {
             >
                 <AppBar
                     position="sticky"
-                    color="primary"
                     sx={{
                         top: "auto",
                         bottom: 0,
@@ -106,7 +106,7 @@ export const NavSearch = ({ catalog }: NavSearchProps) => {
                         <Box
                             px={3}
                             py={1.5}
-                            bgcolor="#FFFF00"
+                            bgcolor={theme.palette.secondary.main}
                             display="flex"
                             justifyContent="space-between"
                             sx={{
@@ -118,27 +118,38 @@ export const NavSearch = ({ catalog }: NavSearchProps) => {
                                 gap={1}
                                 color="#000"
                             >
-                                <Typography sx={{fontWeight: "bold"}} component="strong">Meu carrinho</Typography>
-                                <Typography sx={{fontWeight: "bold"}} component="strong">({qtdProductCart})</Typography>
+                                <Typography
+                                    color={theme.palette.text.primary}
+                                    sx={{ fontWeight: "bold" }}
+                                    component="strong"
+                                >Meu carrinho</Typography>
+                                <Typography
+                                    color={theme.palette.text.primary}
+                                    sx={{ fontWeight: "bold" }}
+                                    component="strong"
+                                >({qtdProductCart})</Typography>
                             </Box>
                             <Box
                                 display="flex"
                                 gap={1}
-                                color="#000"
-                            >
-                                <Typography sx={{fontWeight: "bold"}} component="strong">{total}</Typography>
+                                color={theme.palette.text.primary}                            >
+                                <Typography sx={{ fontWeight: "bold" }} component="strong">{total}</Typography>
                             </Box>
                         </Box>
                     )}
-                    <Toolbar>
+                    <Toolbar sx={{
+                        bgcolor: theme.palette.info.main
+                    }}>
                         <IconButton
                             size="large"
                             edge="start"
-                            color="inherit"
+                            color="primary"
                             aria-label="open drawer"
                             onClick={handleClickOpen}
                         >
-                            <Badge badgeContent={qtdProductCart} color="secondary">
+                            <Badge
+                                color='primary'
+                                badgeContent={qtdProductCart} >
                                 <FaShoppingCart />
                             </Badge>
                         </IconButton>
@@ -147,20 +158,20 @@ export const NavSearch = ({ catalog }: NavSearchProps) => {
                                 <BsSearch />
                             </SearchIconWrapper>
                             <StyledInputBase
-                                placeholder="Search…"
+                                placeholder="Pesquisar..."
                                 inputProps={{ 'aria-label': 'search' }}
                             />
                         </Search>
                         <Box sx={{ flexGrow: 1 }} />
                         <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
-                            <IconButton 
-                                
+                            <IconButton
+
                                 size="large"
                                 edge="end"
                                 aria-label="account of current user"
                                 // aria-controls={menuId}
                                 aria-haspopup="true"
-                                color="inherit"
+                                color="primary"
                             >
                                 <BsFillMicFill />
                             </IconButton>
@@ -170,6 +181,7 @@ export const NavSearch = ({ catalog }: NavSearchProps) => {
             </Box>
 
             <DialogNavSearch
+            payments={payments}
                 total={total}
                 catalog={catalog}
                 open={open}

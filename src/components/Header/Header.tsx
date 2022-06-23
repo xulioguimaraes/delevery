@@ -1,4 +1,4 @@
-import { Box, Button, Collapse, Container, Divider, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Popover, Stack, Switch, TextField, Typography, useTheme } from '@mui/material'
+import { Box, Button, CardMedia, Collapse, Container, Divider, ImageListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Popover, Stack, styled, Switch, TextField, Typography, useTheme } from '@mui/material'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import styles from "./styles.module.scss"
@@ -15,6 +15,11 @@ import { MenuHeader } from '../MenuHeader/MenuHeader';
 interface HeaderProps {
   infoPage: AppTypes
 }
+const CoverPage = styled('img')(({ theme }) => ({
+  position: 'relative',
+  width: "100%",
+  bottom: "50%"
+}));
 export const Header = ({ infoPage }: HeaderProps) => {
   const [handleSeeMore, setHandleSeeMore] = useState(false)
   const theme = useTheme()
@@ -27,10 +32,18 @@ export const Header = ({ infoPage }: HeaderProps) => {
         pl: "0px !important",
         pr: "0px !important"
       }}>
-        <div className={styles.divBackground}>
+        <Box
+          height="145px"
+          overflow="hidden">
+            <CoverPage sx={{bottom:["0", "50%"]}}  src={infoPage.media.cover}/>
+          {/* <img src={infoPage.media.cover} alt="Capa da pagina" /> */}
+
+        </Box>
+        {/* <div className={styles.divBackground}>
 
           <img src={infoPage.media.cover} alt="Capa da pagina" />
         </div>
+  */}
         <div className={styles.divImgButton}>
           <Link href='/'>
             <button>
@@ -43,7 +56,6 @@ export const Header = ({ infoPage }: HeaderProps) => {
         </div>
         <MenuHeader />
         <Box
-          display="grid"
           justifyContent="center"
           alignItems="center">
           <Typography
@@ -56,7 +68,8 @@ export const Header = ({ infoPage }: HeaderProps) => {
           </Typography>
           <Typography
             color="text.primary"
-            component="p" >
+            component="p"
+            textAlign="center">
             {infoPage.description}
           </Typography>
 

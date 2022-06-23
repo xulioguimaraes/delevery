@@ -5,7 +5,7 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 
 import { Header } from "../../components/Header/Header";
-import { AppTypes, CatalogTypes, ItensCatalogTypes, ProductsProps, ThemeColorConfigAppTypes } from "../../interfaces/dataInterfaces";
+import { AppTypes, CatalogTypes, ItensCatalogTypes, PaymentsConfigAppTypes, ProductsProps, ThemeColorConfigAppTypes } from "../../interfaces/dataInterfaces";
 import { Spotlight } from "../../components/Spotlight/Spotlight";
 import { Catalog } from "../../components/Catalog/Catalog";
 import { NavSearch } from "../../components/NavSearch/NavSearch";
@@ -18,13 +18,14 @@ interface PageDeliveryProps {
         catalog: CatalogTypes[]
         spotlight: ItensCatalogTypes[]
         themesColor: ThemeColorConfigAppTypes
+        payments: PaymentsConfigAppTypes
     }
 }
 
 export default function RetirarLocal({ page }: PageDeliveryProps) {
     console.log(page);
 
-    const { app, spotlight, catalog, themesColor } = page
+    const { app, spotlight, catalog, themesColor, payments } = page
     const {  setColors } = useThemes()
     const theme = useTheme()
     const [modalItens, setModalItens] = useState(false)
@@ -52,7 +53,7 @@ export default function RetirarLocal({ page }: PageDeliveryProps) {
                 <Spotlight spotlight={spotlight} handleItemCatalog={handleItemCatalog} />
                 <Catalog catalog={catalog} handleItemCatalog={handleItemCatalog} />
             </Container>
-            <NavSearch catalog={catalog} />
+            <NavSearch catalog={catalog} payments={payments}/>
             <DialogItens
                 modalItens={modalItens}
                 handleClose={handleClose}
@@ -69,7 +70,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     const { slug, route }: any = params
     const themesColor = product.app.config.theme_color
     const exists = product.app.config.methods.some(item => item === route)
-
+    const payments = product.app.config.payments
 
     if (!exists) {
         return {
@@ -113,7 +114,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         slug,
         catalog,
         spotlight,
-        themesColor
+        themesColor,
+        payments
     }
     return {
         props: {

@@ -16,6 +16,9 @@ export const LightTheme = (colors: string[])=>{
                 secondary:{
                     main: colors[1] ? colors[1] :""
                 },
+                info: {
+                    main: grey[300]
+                }
             }),
             divider:grey[800]
         },

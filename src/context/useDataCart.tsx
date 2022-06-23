@@ -15,6 +15,7 @@ export interface ICart {
     image: string
     idItemCart: number
     description: string
+    obs: string
     attributes: IAtrinusts[]
 }
 interface IDataCart {

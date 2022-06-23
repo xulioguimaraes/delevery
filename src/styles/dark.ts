@@ -19,6 +19,9 @@ export const DarkTheme = (colors: string[])=>{
             text:{
                 primary: "#fff",
                 secondary: "#ddd"
+            },
+            info: {
+                main: grey[900]
             }
         },
        

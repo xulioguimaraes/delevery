@@ -35,7 +35,7 @@ export const MenuHeader = () => {
     };
     return (
         <Box
-            display="flex"
+            display={["none", "none", "flex"]}
             justifyContent="flex-end"
             mt="-80px"
             mb="54px"

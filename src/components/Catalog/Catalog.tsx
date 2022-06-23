@@ -2,6 +2,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Box, Card, CardContent, 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { CatalogTypes, ItensCatalogTypes } from '../../interfaces/dataInterfaces'
 import { useEffect, useState } from 'react';
+import { Promo } from '../Promo/Promo';
 interface CatalogProps {
     catalog: CatalogTypes[]
     handleItemCatalog: (item: ItensCatalogTypes) => void
@@ -11,10 +12,10 @@ interface CatalogProps {
 export const Catalog = ({ catalog, handleItemCatalog }: CatalogProps) => {
     const theme = useTheme()
     const [catalogExpand, setCatalogExpand] = useState<CatalogTypes[]>([])
-    const handleChange =(id: string)=>{
+    const handleChange = (id: string) => {
         const catalogExpandAux = catalog.map(item => {
             if (item.id === id) {
-                item.expanded =  !item.expanded
+                item.expanded = !item.expanded
                 return item
             }
             return item
@@ -35,16 +36,16 @@ export const Catalog = ({ catalog, handleItemCatalog }: CatalogProps) => {
                     <Stack mt={2} mb={2}>
                         {catalogExpand.map((item, index) => {
                             return <Accordion
-                            sx={{
-                                boxShadow:0
-                            }}
+                                sx={{
+                                    boxShadow: 0
+                                }}
                                 expanded={item.expanded}
-                                onChange={()=>handleChange(item.id)}
+                                onChange={() => handleChange(item.id)}
                                 key={item.id}>
                                 <AccordionSummary
                                     sx={{
-                                       "::before":{backgroundColor: "none"},
-                                        borderRadius: item.expanded ? 4: 0,
+                                        "::before": { backgroundColor: "none" },
+                                        borderRadius: item.expanded ? 4 : 0,
                                         backgroundColor: theme.palette.background.default
                                     }}
                                     expandIcon={<ExpandMoreIcon
@@ -65,13 +66,20 @@ export const Catalog = ({ catalog, handleItemCatalog }: CatalogProps) => {
                                             return <Card
                                                 onClick={() => handleItemCatalog(ev)}
                                                 key={ev.id}
-                                                sx={{ display: 'flex', width: "100%" }}>
+                                                sx={{
+                                                    display: 'flex',
+                                                    width: "100%",
+                                                    position: "relative"
+                                                }}>
+
+
                                                 <CardMedia
                                                     component="img"
                                                     sx={{ width: 151 }}
                                                     image={ev.image}
                                                     alt="Live from space album cover"
                                                 />
+                                                {+String(ev.price_promo).replace(/[^0-9]/g, '') > 0 && <Promo />}
                                                 <Box
                                                     sx={{
                                                         display: 'flex',

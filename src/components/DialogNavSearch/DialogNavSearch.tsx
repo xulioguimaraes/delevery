@@ -71,7 +71,7 @@ const renderItem = (item: ICartUse, handleDeleteItemCart: (item: number) => void
     </>
 
 }
-export const DialogNavSearch = ({ open, handleClose, catalog, total,payments }: DialogNavSearchProps) => {
+export const DialogNavSearch = ({ open, handleClose, catalog, total, payments }: DialogNavSearchProps) => {
     const { cart, setCart } = useDataCart()
     const [group, setGroup] = useState<Record<string, ICartUse[]>>({})
     const [value, setValue] = React.useState(0);
@@ -83,7 +83,7 @@ export const DialogNavSearch = ({ open, handleClose, catalog, total,payments }: 
     };
     const handleCloseDialogFinish = () => {
         setOpenDialogFinish(false);
-      };
+    };
     const theme = useTheme()
 
     const handleChange2 = (newValue: number) => {
@@ -134,9 +134,11 @@ export const DialogNavSearch = ({ open, handleClose, catalog, total,payments }: 
                 onClose={handleClose}
                 aria-describedby="alert-dialog-slide-description"
             >
-                <Container sx={{ py: 2 }}>
+                <Container sx={{ py: 2, px: [.4, 2] }}>
                     <DialogTitle
                         component="div"
+                        px={[2, 3]}
+                        py={[1, 3]}
                         display="flex"
                         gap={1}
                         lineHeight={0}>
@@ -149,7 +151,8 @@ export const DialogNavSearch = ({ open, handleClose, catalog, total,payments }: 
                     </DialogTitle>
                     <Divider light />
                     <DialogTitle
-                        py="12px"
+                        px={[2, 3]}
+                        py={[1, 2]}
                         component="div"
                         display="flex"
                         gap={1}
@@ -162,7 +165,8 @@ export const DialogNavSearch = ({ open, handleClose, catalog, total,payments }: 
                     </DialogTitle>
                     <Divider light />
                     <DialogTitle
-                        py="12px"
+                        px={[2, 3]}
+                        py={[1, 1.5]}
                         component="div"
                         display="flex"
                         gap={1}
@@ -179,7 +183,8 @@ export const DialogNavSearch = ({ open, handleClose, catalog, total,payments }: 
                     </DialogTitle>
                     <Divider light />
                     {cart.length === 0 && <DialogTitle
-                        py="12px"
+                           px={[2, 3]}
+                           py={[1, 1.5]}
                         component="div"
                         display="flex"
                         gap={1}
@@ -190,11 +195,11 @@ export const DialogNavSearch = ({ open, handleClose, catalog, total,payments }: 
                         >{`Seu carrinho está vazio`}
                         </Typography>
                     </DialogTitle>}
-                    <DialogContent sx={{ py: 0 }}>
+                    <DialogContent sx={{ py: 0, px:[1, 3] }}>
                         {Object.keys(group).map((item, key) => {
                             return <>
                                 <DialogContentText
-                                     color={theme.palette.text.primary}
+                                    color={theme.palette.text.primary}
                                     borderRadius={2}
                                     bgcolor={theme.palette.background.default}
                                     paddingX={1}
@@ -218,7 +223,7 @@ export const DialogNavSearch = ({ open, handleClose, catalog, total,payments }: 
                         <TabPanel value={value} index={0}>
                             <DialogTitle
                                 onClick={() => handleChange2(1)}
-                                py="12px"
+                                py={[1, 1.5]}
                                 sx={{ paddingRight: 0 }}
                                 id="Content ticket"
                                 component="div"
@@ -249,7 +254,7 @@ export const DialogNavSearch = ({ open, handleClose, catalog, total,payments }: 
                         </TabPanel>
                         <TabPanel value={value} index={1}>
                             <DialogTitle
-                                sx={{ paddingX: 0, py: "12px" }}
+                                sx={{ paddingX: 0, py:[1, 1.5] }}
                                 id="Content ticket input"
                                 component="section"
                                 display="flex"
@@ -263,7 +268,8 @@ export const DialogNavSearch = ({ open, handleClose, catalog, total,payments }: 
                                         <FaChevronLeft />
                                     </IconButton>
                                     <TextField fullWidth id="outlined-basic" label="Digite o código" variant="outlined" />
-                                    <Button sx={{ minWidth: "210px" }} size='large' variant="outlined" startIcon={<FaTicketAlt />}>Aplicar cupom</Button>
+                                    <Button sx={{ minWidth: "210px", display:["none", "block"] }} size='large' variant="outlined" startIcon={<FaTicketAlt />}>Aplicar cupom</Button>
+                                    <Button size="large" variant='contained'><FaTicketAlt /></Button>
                                 </Box>
                             </DialogTitle>
                         </TabPanel>
@@ -308,7 +314,7 @@ export const DialogNavSearch = ({ open, handleClose, catalog, total,payments }: 
                     </DialogActions>
                 </Container>
             </Dialog>
-            <DialogFinish payments={payments} open={openDialogFinish} handleClose={handleCloseDialogFinish}/>          
+            <DialogFinish payments={payments} open={openDialogFinish} handleClose={handleCloseDialogFinish} />
 
         </>
     )

@@ -10,7 +10,7 @@ import { Spotlight } from "../../components/Spotlight/Spotlight";
 import { Catalog } from "../../components/Catalog/Catalog";
 import { NavSearch } from "../../components/NavSearch/NavSearch";
 import { DialogItens } from "../../components/DialogItens/DialogItens";
-import {  useThemes } from "../../context/useTheme";
+import { useThemes } from "../../context/useTheme";
 interface PageDeliveryProps {
     page: {
         app: AppTypes
@@ -26,7 +26,7 @@ export default function RetirarLocal({ page }: PageDeliveryProps) {
     console.log(page);
 
     const { app, spotlight, catalog, themesColor, payments } = page
-    const {  setColors } = useThemes()
+    const { setColors } = useThemes()
     const theme = useTheme()
     const [modalItens, setModalItens] = useState(false)
     const [itemModalHandle, setItemModalHandle] = useState<ItensCatalogTypes>()
@@ -46,14 +46,21 @@ export default function RetirarLocal({ page }: PageDeliveryProps) {
             <Head>
                 <title>Retirar | {`${app.name}`}</title>
             </Head>
-            <CssBaseline/>
+            <CssBaseline />
 
             <Header infoPage={app} />
-            <Container maxWidth="lg" component="main" sx={{ backgroundColor: theme.palette.background.paper, pb: "75px" }}>
+            <Container
+                maxWidth="lg"
+                component="main"
+                sx={{
+                    backgroundColor: theme.palette.background.paper,
+                    pb: "75px",
+                    px:[.8, 2]
+                }}>
                 <Spotlight spotlight={spotlight} handleItemCatalog={handleItemCatalog} />
                 <Catalog catalog={catalog} handleItemCatalog={handleItemCatalog} />
             </Container>
-            <NavSearch catalog={catalog} payments={payments}/>
+            <NavSearch catalog={catalog} payments={payments} />
             <DialogItens
                 modalItens={modalItens}
                 handleClose={handleClose}

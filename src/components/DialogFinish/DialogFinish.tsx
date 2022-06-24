@@ -29,7 +29,8 @@ const DialogFinish = ({ open, handleClose , payments}: DialogFinishProps) => {
                 aria-describedby="alert-dialog-slide-description"
             >
                 <Container sx={{
-                    py: 2
+                    py: 2,
+                    px:[.4, 2]
                 }}>
 
                     <DialogTitle display="flex" gap={1}>
@@ -39,7 +40,10 @@ const DialogFinish = ({ open, handleClose , payments}: DialogFinishProps) => {
                         {"Confirmar"}
                     </DialogTitle>
                     <Divider light />
-                    <DialogContent>
+                    <DialogContent
+                    sx={{
+                        px:[1.5, 3]
+                    }}>
                         <Box>
                             <TextField
                                 sx={{

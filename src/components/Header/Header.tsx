@@ -36,14 +36,8 @@ export const Header = ({ infoPage }: HeaderProps) => {
           height="145px"
           overflow="hidden">
             <CoverPage sx={{bottom:["0", "50%"]}}  src={infoPage.media.cover}/>
-          {/* <img src={infoPage.media.cover} alt="Capa da pagina" /> */}
-
         </Box>
-        {/* <div className={styles.divBackground}>
 
-          <img src={infoPage.media.cover} alt="Capa da pagina" />
-        </div>
-  */}
         <div className={styles.divImgButton}>
           <Link href='/'>
             <button>
@@ -51,13 +45,9 @@ export const Header = ({ infoPage }: HeaderProps) => {
             </button>
           </Link>
         </div>
-        <div className={styles.divButtonsHeader}>
-
-        </div>
         <MenuHeader />
         <Box
-          justifyContent="center"
-          alignItems="center">
+        mt={0}>
           <Typography
             fontWeight="bold"
             textAlign="center"

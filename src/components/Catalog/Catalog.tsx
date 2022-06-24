@@ -71,11 +71,9 @@ export const Catalog = ({ catalog, handleItemCatalog }: CatalogProps) => {
                                                     width: "100%",
                                                     position: "relative"
                                                 }}>
-
-
                                                 <CardMedia
                                                     component="img"
-                                                    sx={{ width: 151 }}
+                                                    sx={{ width: [105, 151] }}
                                                     image={ev.image}
                                                     alt="Live from space album cover"
                                                 />

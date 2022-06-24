@@ -98,7 +98,7 @@ export const DialogItens = ({ modalItens, handleClose, itemModalHandle }: Dialog
                     <CardMedia
                         component="img"
                         height="140"
-                        sx={{ minWidth: "380px" }}
+                        sx={{ minWidth: ["280px", "380px"] }}
                         image={itemModalHandle?.image}
                         alt={itemModalHandle?.name}
                     />
@@ -132,7 +132,10 @@ export const DialogItens = ({ modalItens, handleClose, itemModalHandle }: Dialog
                 </DialogContent>
 
             })}
-            <DialogContent>
+            <DialogContent sx={{
+                py: [1.5, 2.5],
+                px: [2, 3]
+            }}>
                 <Divider sx={{ mb: 2 }} />
                 <TextField
                     fullWidth
@@ -167,8 +170,20 @@ export const DialogItens = ({ modalItens, handleClose, itemModalHandle }: Dialog
                             <IoMdAdd />
                         </Button>
                     </Box>
-                    <Button startIcon={<IoMdAdd />} variant="contained" color="secondary" onClick={handleCart} autoFocus>
-                        Adicionar {price}
+                    <Button  startIcon={<IoMdAdd />} variant="contained" color="secondary" onClick={handleCart} autoFocus>
+                      
+                        <Typography
+                            pr={0.6}
+                            display={["none", "flex"]}
+                            fontSize=".9rem"
+                            component="span"
+                        >Adicionar</Typography>
+                          <Typography
+                            pr={0.6}
+                            fontSize={["1rem", ".9rem"]}
+                            component="span"
+                        >  {price}</Typography>
+                       
                     </Button>
                 </DialogActions>
             </DialogContent>

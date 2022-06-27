@@ -41,7 +41,7 @@ export default function PageDelivery({ page }: PageDeliveryProps) {
 
 
 export const getServerSideProps: GetServerSideProps = async ({  params }) => {
-    const product = await axios.get("http://localhost:3000/api/products").then(item => {
+    const product = await axios.get("https://delivery-raesjulio.vercel.app/api/products").then(item => {
         return item.data
      }) as ProductsProps
     const themesColor = product.app.config.theme_color

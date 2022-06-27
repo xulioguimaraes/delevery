@@ -3,7 +3,13 @@ import { log } from 'console'
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { IoMdAdd, IoMdRemove } from 'react-icons/io'
 import { ItensAttributesTypes } from '../../interfaces/dataInterfaces'
-interface IAtrinusts extends ItensAttributesTypes {
+interface IAtrinusts {
+    visible: boolean
+    description: string | null
+    price: string
+    order: number
+    name: string
+    id: string
     qtd: number
 }
 interface ItensDialogProps {
@@ -21,14 +27,14 @@ interface ItensDialogProps {
 export const ItensDialog = ({ itens, start, end, priceItem, setPrice, setDataItens, dataItens }: ItensDialogProps) => {
     const [total, setTotal] = useState(0)
 
-    const [atributsName, setAtributsName] = useState<IAtrinusts[] | []>([])
+    const [atributsName, setAtributsName] = useState<IAtrinusts[]>([])
     useEffect(() => {
         const itensAux  = itens.map(item => {
             if (item.visible === true) {
                 return { ...item, qtd: 0 }
             }
         }).filter(ev => !!ev)
-        setAtributsName(itensAux) 
+        setAtributsName(itensAux as IAtrinusts[]) 
     }, [])
     useEffect(() => {
         const result = atributsName.map(item => {

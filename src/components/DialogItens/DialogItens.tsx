@@ -1,7 +1,8 @@
-import { Box, Button, CardMedia, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Stack, TextField, Typography } from "@mui/material"
+import { Box, Button, CardMedia, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Icon, Stack, styled, TextField, Typography } from "@mui/material"
 import { ChangeEvent, useEffect, useState } from "react"
 
 import { IoMdAdd, IoMdRemove } from "react-icons/io"
+import { IoClose } from "react-icons/io5"
 import { useDataCart } from "../../context/useDataCart"
 import { CatalogTypes, ItensAttributesTypes, ItensCatalogTypes } from "../../interfaces/dataInterfaces"
 
@@ -16,6 +17,15 @@ interface IAtrinusts extends ItensAttributesTypes {
     qtd: number
 
 }
+const ButtonClose = styled('button')(({ theme }) => ({
+    background: "none",
+    color: theme.palette.primary.main,
+    border: "none",
+    p: 0,
+    position: "absolute",
+    right: -15,
+    top: -16.5
+}));
 export const DialogItens = ({ modalItens, handleClose, itemModalHandle }: DialogItensProps) => {
     const [price, setPrice] = useState("")
     const [qtdItem, setQtdItem] = useState(1)
@@ -87,106 +97,122 @@ export const DialogItens = ({ modalItens, handleClose, itemModalHandle }: Dialog
         <Dialog
             open={modalItens}
             onClose={handleClose}
-            sx={{ minWidth: "380px" }}
+            closeAfterTransition
+            sx={{ minWidth: "380px", p: 0, m: 0 }}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
         >
-            <DialogContent>
-                <Box
-                    display='flex'
-                    justifyContent="center">
-                    <CardMedia
-                        component="img"
-                        height="140"
-                        sx={{ minWidth: ["280px", "380px"] }}
-                        image={itemModalHandle?.image}
-                        alt={itemModalHandle?.name}
-                    />
-                </Box>
-            </DialogContent>
-            <DialogTitle id="alert-dialog-title">
-                {itemModalHandle?.name}
-                <DialogContentText id="alert-dialog-description">
-                    {itemModalHandle?.description}
-                </DialogContentText>
-            </DialogTitle>
-            {itemModalHandle?.attributes.map(item => {
-                return <DialogContent key={item.id}>
-                    <Divider />
-                    <Typography
-                        pt={2}
-                        component="h1">
-                        {item.name}
-                    </Typography>
-                    <Typography component="p">
-                        Selecione de {item.qty[0]} a {item.qty[1]}
-                    </Typography>
-                    <ItensDialog
-                        priceItem={price}
-                        setPrice={setPrice}
-                        itens={item.itens}
-                        dataItens={dataItens}
-                        setDataItens={setDataItens}
-                        end={item.qty[1]}
-                        start={item.qty[0]} />
-                </DialogContent>
 
-            })}
-            <DialogContent sx={{
-                py: [1.5, 2.5],
-                px: [2, 3]
-            }}>
-                <Divider sx={{ mb: 2 }} />
-                <TextField
-                    fullWidth
-                    id="outlined-multiline-static"
-                    label="Observação"
-                    value={valueObs}
-                    onChange={(e) => onChange(e.target.value)}
-                    multiline
-                    rows={2}
-                />
-                <DialogActions>
+            <DialogContent >
+                <Box py={.5} position="relative">
+                    <ButtonClose
+                        onClick={handleClose}>
+                        <Icon>
+                            <IoClose />
+                        </Icon>
+                    </ButtonClose>
+                </Box>
+                <DialogTitle id="alert-title" sx={{ p: 0, mb: 1 }}>
                     <Box
-                        pr={2}>
-                        <Button
-                            sx={{ minWidth: "15px", p: "9px" }}
-                            variant="contained"
-                            disabled={qtdItem <= 1}
-                            onClick={removeQtdItem}
-                            size="large">
-                            <IoMdRemove />
-                        </Button>
-                        <Typography
-                            component="span"
-                            px={2}>
-                            {qtdItem}
-                        </Typography>
-                        <Button
-                            sx={{ minWidth: "15px", p: "9px" }}
-                            onClick={addQtdItem}
-                            variant="contained"
-                            size="large" >
-                            <IoMdAdd />
-                        </Button>
+                        display="flex"
+                        justifyContent="center"
+                        overflow="hidden">
+                        <CardMedia
+                            component="img"
+                            height="140"
+                            sx={{ minWidth: ["280px", "380px"] }}
+                            image={itemModalHandle?.image}
+                            alt={itemModalHandle?.name}
+                        />
                     </Box>
-                    <Button  startIcon={<IoMdAdd />} variant="contained" color="secondary" onClick={handleCart} autoFocus>
-                      
-                        <Typography
-                            pr={0.6}
-                            display={["none", "flex"]}
-                            fontSize=".9rem"
-                            component="span"
-                        >Adicionar</Typography>
-                          <Typography
-                            pr={0.6}
-                            fontSize={["1rem", ".9rem"]}
-                            component="span"
-                        >  {price}</Typography>
-                       
-                    </Button>
-                </DialogActions>
+                    {itemModalHandle?.name}
+                    <DialogContentText id="alert-description">
+                        {itemModalHandle?.description}
+                    </DialogContentText>
+                </DialogTitle>
+                <Divider light />
+                {itemModalHandle?.attributes.map(item => {
+                    return <>
+                        <Box
+                            component="aside"
+                            key={item.id}
+                            sx={{
+                                mb: 1
+                            }}>
+                            <Typography
+                                pt={2}
+                                component="h1">
+                                {item.name}
+                            </Typography>
+                            <Typography component="p">
+                                Selecione de {item.qty[0]} a {item.qty[1]}
+                            </Typography>
+                            <ItensDialog
+                                priceItem={price}
+                                setPrice={setPrice}
+                                itens={item.itens}
+                                dataItens={dataItens}
+                                setDataItens={setDataItens}
+                                end={item.qty[1]}
+                                start={item.qty[0]} />
+                        </Box>
+                        <Divider light />
+                    </>
+                })}
+                <>
+                    <Divider sx={{ mb: 2 }} light />
+                    <TextField
+                        fullWidth
+                        id="outlined-multiline-static"
+                        label="Observação"
+                        value={valueObs}
+                        onChange={(e) => onChange(e.target.value)}
+                        multiline
+                        rows={2}
+                    />
+
+                </>
             </DialogContent>
+            <DialogActions>
+                <Box
+                    pr={2}>
+                    <Button
+                        sx={{ minWidth: "15px", p: "9px" }}
+                        variant="contained"
+                        disabled={qtdItem <= 1}
+                        onClick={removeQtdItem}
+                        size="large">
+                        <IoMdRemove />
+                    </Button>
+                    <Typography
+                        component="span"
+                        px={2}>
+                        {qtdItem}
+                    </Typography>
+                    <Button
+                        sx={{ minWidth: "15px", p: "9px" }}
+                        onClick={addQtdItem}
+                        variant="contained"
+                        size="large" >
+                        <IoMdAdd />
+                    </Button>
+                </Box>
+                <Button startIcon={<IoMdAdd />} variant="contained" color="secondary" onClick={handleCart} autoFocus>
+
+                    <Typography
+                        pr={0.6}
+                        display={["none", "flex"]}
+                        fontSize=".9rem"
+                        component="span"
+                    >Adicionar</Typography>
+                    <Typography
+                        pr={0.6}
+                        fontSize={["1rem", ".9rem"]}
+                        component="span"
+                    >  {price}</Typography>
+
+                </Button>
+            </DialogActions>
         </Dialog>
     )
 }

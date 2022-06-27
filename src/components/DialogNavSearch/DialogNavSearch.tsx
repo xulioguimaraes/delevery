@@ -1,8 +1,9 @@
-import { Box, Button, Collapse, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Icon, IconButton, Link, List, ListItem, Slide, Tab, Tabs, TextField, Typography, useTheme } from '@mui/material'
+import { Box, Button, Collapse, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Icon, IconButton, Link, List, ListItem, Slide, Stack, styled, Tab, Tabs, TextField, Typography, useTheme } from '@mui/material'
 import { TransitionProps } from '@mui/material/transitions';
 import React, { useEffect, useState } from 'react'
 import { BiBox } from 'react-icons/bi';
 import { FaArrowRight, FaChevronLeft, FaChevronRight, FaShoppingCart, FaTicketAlt, FaTrash } from 'react-icons/fa';
+import { IoClose } from 'react-icons/io5';
 import { TransitionGroup } from 'react-transition-group';
 import { ICart, useDataCart } from '../../context/useDataCart';
 import { CatalogTypes, PaymentsConfigAppTypes } from '../../interfaces/dataInterfaces';
@@ -33,6 +34,15 @@ interface TabPanelProps {
     index: number;
     value: number;
 }
+const ButtonClose = styled('button')(({ theme }) => ({
+    background: "none",
+    color: theme.palette.primary.main,
+    border: "none",
+    p: 0,
+    position: "absolute",
+    right: 3,
+    top: [-11.5,0 ]
+}));
 function TabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
 
@@ -135,20 +145,35 @@ export const DialogNavSearch = ({ open, handleClose, catalog, total, payments }:
                 aria-describedby="alert-dialog-slide-description"
             >
                 <Container sx={{ py: 2, px: [.4, 2] }}>
-                    <DialogTitle
-                        component="div"
-                        px={[2, 3]}
-                        py={[1, 3]}
-                        display="flex"
-                        gap={1}
-                        lineHeight={0}>
-                        <Icon color='primary'><FaShoppingCart /></Icon>
-                        <Typography
-                            lineHeight={1.3}
-                            fontSize="1.3rem"
-                            component="h1"
-                        >Carrinho</Typography>
-                    </DialogTitle>
+                    <Stack direction="row" justifyContent="space-between">
+                        <Box>
+                            <DialogTitle
+                                component="div"
+                                px={[2, 3]}
+                                py={[1, 3]}
+                                display="flex"
+                                gap={1}
+                                lineHeight={0}>
+                                <Icon color='primary'><FaShoppingCart /></Icon>
+                                <Typography
+                                    lineHeight={1.3}
+                                    fontSize="1.3rem"
+                                    component="h1"
+                                >Carrinho</Typography>
+                            </DialogTitle>
+                        </Box>
+
+
+                        <Box  position="relative">
+                            <ButtonClose
+                                onClick={handleClose}>
+                                <Icon>
+                                    <IoClose />
+                                </Icon>
+                            </ButtonClose>
+                        </Box>
+                    </Stack>
+
                     <Divider light />
                     <DialogTitle
                         px={[2, 3]}
@@ -183,8 +208,8 @@ export const DialogNavSearch = ({ open, handleClose, catalog, total, payments }:
                     </DialogTitle>
                     <Divider light />
                     {cart.length === 0 && <DialogTitle
-                           px={[2, 3]}
-                           py={[1, 1.5]}
+                        px={[2, 3]}
+                        py={[1, 1.5]}
                         component="div"
                         display="flex"
                         gap={1}
@@ -195,7 +220,7 @@ export const DialogNavSearch = ({ open, handleClose, catalog, total, payments }:
                         >{`Seu carrinho está vazio`}
                         </Typography>
                     </DialogTitle>}
-                    <DialogContent sx={{ py: 0, px:[1, 3] }}>
+                    <DialogContent sx={{ py: 0, px: [1, 3] }}>
                         {Object.keys(group).map((item, key) => {
                             return <>
                                 <DialogContentText
@@ -254,7 +279,7 @@ export const DialogNavSearch = ({ open, handleClose, catalog, total, payments }:
                         </TabPanel>
                         <TabPanel value={value} index={1}>
                             <DialogTitle
-                                sx={{ paddingX: 0, py:[1, 1.5] }}
+                                sx={{ paddingX: 0, py: [1, 1.5] }}
                                 id="Content ticket input"
                                 component="section"
                                 display="flex"
@@ -268,8 +293,18 @@ export const DialogNavSearch = ({ open, handleClose, catalog, total, payments }:
                                         <FaChevronLeft />
                                     </IconButton>
                                     <TextField fullWidth id="outlined-basic" label="Digite o código" variant="outlined" />
-                                    <Button sx={{ minWidth: "210px", display:["none", "block"] }} size='large' variant="outlined" startIcon={<FaTicketAlt />}>Aplicar cupom</Button>
-                                    <Button size="large" variant='contained'><FaTicketAlt /></Button>
+                                    <Button sx={{
+                                        minWidth: "210px",
+                                        display: ["none", "flex"]
+                                    }}
+                                        size='large'
+                                        variant="outlined"
+                                        startIcon={<FaTicketAlt />}
+                                    >Aplicar cupom
+                                    </Button>
+                                    <Button sx={{
+                                        display: ["flex", "none"]
+                                    }} size="large" variant='contained'><FaTicketAlt /></Button>
                                 </Box>
                             </DialogTitle>
                         </TabPanel>
@@ -300,7 +335,10 @@ export const DialogNavSearch = ({ open, handleClose, catalog, total, payments }:
                             variant='contained'
                             startIcon={<FaShoppingCart />}
                             onClick={handleClose}
-                        >Continuar comprando</Button>
+                        >
+                            <Typography display={["none", "inline-flex"]} >Continuar comprando</Typography>
+                            <Typography display={["inline-flex", "none"]}>Continuar</Typography>
+                        </Button>
                         <Button
                             color="secondary"
                             fullWidth
@@ -310,11 +348,14 @@ export const DialogNavSearch = ({ open, handleClose, catalog, total, payments }:
                             startIcon={<FaArrowRight />}
                             variant='contained'
                             onClick={handleClickOpenDialogFinish}
-                        >Finalizar pedido</Button>
+                        >
+                            <Typography display={["none", "inline-flex"]} >Finalizar pedido</Typography>
+                            <Typography display={["inline-flex", "none"]}>Finalizar</Typography>
+                        </Button>
                     </DialogActions>
                 </Container>
             </Dialog>
-            <DialogFinish payments={payments} open={openDialogFinish} handleClose={handleCloseDialogFinish} />
+            <DialogFinish total={total} payments={payments} open={openDialogFinish} handleClose={handleCloseDialogFinish} />
 
         </>
     )

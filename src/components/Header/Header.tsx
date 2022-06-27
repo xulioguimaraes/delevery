@@ -1,16 +1,11 @@
-import { Box, Button, CardMedia, Collapse, Container, Divider, ImageListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Popover, Stack, styled, Switch, TextField, Typography, useTheme } from '@mui/material'
+import { Box, Button, Container, Stack, styled, Typography, useTheme } from '@mui/material'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import styles from "./styles.module.scss"
-import { FiLogIn } from "react-icons/fi";
-import { FaMoon, FaMapMarkerAlt, FaPhoneAlt, FaWhatsapp, FaBox, FaMotorcycle, FaCarAlt, FaShoppingCart } from "react-icons/fa";
-import { RiUser3Fill } from "react-icons/ri";
 import { IoIosArrowDown, IoIosArrowUp, IoIosRedo } from "react-icons/io";
-import { BiChevronsLeft } from "react-icons/bi";
 import { SeeMore } from '../SeeMore/SeeMore';
-import { DialogSignin } from "../DialogSignin/DialogSignin"
+
 import { AppTypes } from '../../interfaces/dataInterfaces';
-import { useThemes } from '../../context/useTheme';
 import { MenuHeader } from '../MenuHeader/MenuHeader';
 interface HeaderProps {
   infoPage: AppTypes
@@ -20,6 +15,8 @@ const CoverPage = styled('img')(({ theme }) => ({
   width: "100%",
   bottom: "50%"
 }));
+const label = { inputProps: { 'aria-label': 'Switch demo' } };
+
 export const Header = ({ infoPage }: HeaderProps) => {
   const [handleSeeMore, setHandleSeeMore] = useState(false)
   const theme = useTheme()
@@ -45,6 +42,7 @@ export const Header = ({ infoPage }: HeaderProps) => {
             </button>
           </Link>
         </div>
+    
         <MenuHeader />
         <Box
         mt={0}>

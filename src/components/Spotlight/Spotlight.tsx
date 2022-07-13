@@ -36,21 +36,22 @@ export const Spotlight = ({ spotlight, handleItemCatalog }: SpotlightProps) => {
                     <Stack
                         direction="row"
                         spacing={2}
-                        sx={{ overflowX: "scroll"}}>
+                        sx={{ overflowX: "scroll" }}>
                         {spotlight.map(item => {
-                        return <>
+                            return <>
+
                                 <Card
                                     key={item.id}
                                     id-controls="sroll"
-                                    
+
                                     sx={{
                                         position: "relative",
                                         maxWidth: 245,
                                         minWidth: 210,
                                     }}
                                     onClick={() => handleItemCatalog(item)}>
-                                      <Promo/> 
-                               
+                                    <Promo />
+
                                     <CardActionArea sx={{
                                         mb: 3
                                     }}>
@@ -58,6 +59,7 @@ export const Spotlight = ({ spotlight, handleItemCatalog }: SpotlightProps) => {
                                         <CardMedia
                                             component="img"
                                             height="140"
+                                            sx={{p:1.3, borderRadius: 4}}
                                             image={item.thumb}
                                             alt={item.name}
                                         />

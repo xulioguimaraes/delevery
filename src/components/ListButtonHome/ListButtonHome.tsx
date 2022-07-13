@@ -47,13 +47,18 @@ export const ListButtonHome = ({ infoButtons, slug }: ListButtonHomeProps) => {
                 alignItems: "center",
                 bgcolor: theme.palette.background.paper
             }}>
-                <Stack spacing={2} >
+                <Box display="block" sx={{ maxWidth: "430px", width: "100%" }} >
                     {optionsButtons.map(item => {
                         return <Link href={`/${slug}/${item.link}`} key={item.link}>
                             <Button
-                            fullWidth
+                                fullWidth
                                 size='large'
-                                sx={{borderColor: "text.primary"}}
+                                sx={{
+                                    borderColor: "GrayText",
+                                    justifyContent: "flex-start",
+                                    mb: 2,
+                                    py: 1.3
+                                }}
                                 startIcon={item.icon}
                                 variant="outlined">
                                 <Typography
@@ -65,7 +70,7 @@ export const ListButtonHome = ({ infoButtons, slug }: ListButtonHomeProps) => {
                             </Button>
                         </Link>
                     })}
-                </Stack>
+                </Box>
             </Container>
 
         </Box>

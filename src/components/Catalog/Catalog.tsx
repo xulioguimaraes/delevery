@@ -37,7 +37,8 @@ export const Catalog = ({ catalog, handleItemCatalog }: CatalogProps) => {
                         {catalogExpand.map((item, index) => {
                             return <Accordion
                                 sx={{
-                                    boxShadow: 0
+                                    boxShadow: 0,
+                                    "::before": { background: "none !important" },
                                 }}
                                 expanded={item.expanded}
                                 onChange={() => handleChange(item.id)}
@@ -45,15 +46,18 @@ export const Catalog = ({ catalog, handleItemCatalog }: CatalogProps) => {
                                 <AccordionSummary
                                     sx={{
                                         "::before": { backgroundColor: "none" },
-                                        borderRadius: item.expanded ? 4 : 0,
-                                        backgroundColor: theme.palette.background.default
+                                        borderRadius:  4 ,
+                                        backgroundColor: theme.palette.background.default,
+                                        marginBottom: 1.3,
+                                        border: "1px solid",
+                                        borderColor: theme.palette.grey[300]
                                     }}
                                     expandIcon={<ExpandMoreIcon
                                         color="primary" />}
                                     aria-controls={item.name}
                                     id={item.name}
                                 >
-                                    <Typography>{item.name}</Typography>
+                                    <Typography fontWeight="700">{item.name}</Typography>
                                 </AccordionSummary>
                                 <AccordionDetails>
                                     <Stack
@@ -63,51 +67,60 @@ export const Catalog = ({ catalog, handleItemCatalog }: CatalogProps) => {
                                         spacing={2}
                                         justifyContent="center">
                                         {item.itens.map(ev => {
-                                            return <Card
-                                                onClick={() => handleItemCatalog(ev)}
-                                                key={ev.id}
-                                                sx={{
-                                                    display: 'flex',
-                                                    width: "100%",
-                                                    position: "relative"
-                                                }}>
-                                                <CardMedia
-                                                    component="img"
-                                                    sx={{ width: [105, 151] }}
-                                                    image={ev.image}
-                                                    alt="Live from space album cover"
-                                                />
-                                                {+String(ev.price_promo).replace(/[^0-9]/g, '') > 0 && <Promo />}
-                                                <Box
+                                            return <>
+
+
+                                                <Card
+                                                    onClick={() => handleItemCatalog(ev)}
+                                                    key={ev.id}
                                                     sx={{
                                                         display: 'flex',
-                                                        flexDirection: 'column'
+                                                        width: "100%",
+                                                        position: "relative",
+                                                        boxShadow: "none",
+                                                        border: "1px solid",
+                                                        overflow: "inherit",
+                                                        borderColor: theme.palette.grey[300]
                                                     }}>
-                                                    <CardContent
-                                                        sx={{ flex: '1 0 auto' }}>
-                                                        <Typography
-                                                            component="div"
-                                                            variant="h5">
-                                                            {ev.name}
+                                                    {+String(ev.price_promo).replace(/[^0-9]/g, '') > 0 && <Promo />}
 
-                                                        </Typography>
-                                                        <Typography
-                                                            variant="subtitle1"
-                                                            color="text.secondary"
-                                                            component="div">
-                                                            {ev.description}
-                                                        </Typography>
-                                                    </CardContent>
-                                                    <Box sx={{
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        pl: 1,
-                                                        pb: 1
-                                                    }}>
-                                                        <Typography>{ev.price}</Typography>
+                                                    <CardMedia
+                                                        component="img"
+                                                        sx={{ width: [105, 151], p: 1.5, borderRadius: 5 }}
+                                                        image={ev.image}
+                                                        alt="Live from space album cover"
+                                                    />
+                                                    <Box
+                                                        sx={{
+                                                            display: 'flex',
+                                                            flexDirection: 'column'
+                                                        }}>
+                                                        <CardContent
+                                                            sx={{ flex: '1 0 auto' }}>
+                                                            <Typography
+                                                                component="div"
+                                                                variant="h5">
+                                                                {ev.name}
+
+                                                            </Typography>
+                                                            <Typography
+                                                                variant="subtitle1"
+                                                                color="text.secondary"
+                                                                component="div">
+                                                                {ev.description}
+                                                            </Typography>
+                                                        </CardContent>
+                                                        <Box sx={{
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            pl: 2,
+                                                            pb: 2
+                                                        }}>
+                                                            <Typography>{ev.price}</Typography>
+                                                        </Box>
                                                     </Box>
-                                                </Box>
-                                            </Card>
+                                                </Card>
+                                            </>
                                         })}
                                     </Stack>
                                 </AccordionDetails>

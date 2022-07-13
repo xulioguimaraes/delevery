@@ -1,4 +1,4 @@
-import { Button, Collapse, Container, Icon, List, ListItemButton, ListItemIcon, ListItemText, Stack } from "@mui/material"
+import { Button, Collapse, Container, Icon, List, ListItemButton, ListItemIcon, ListItemText, Stack, Typography, useTheme } from "@mui/material"
 import { Box } from "@mui/system"
 import { useEffect, useState } from "react"
 import { FaMapMarkerAlt, FaPhoneAlt, FaWhatsapp } from "react-icons/fa"
@@ -12,7 +12,7 @@ import styles from "./styles.module.scss"
 
 export const SeeMore = ({ handleSeeMore, infoPage }: SeeMoreProps) => {
     const { config, info } = infoPage
-
+    const theme = useTheme()
     const [open, setOpen] = useState(false);
     const daysWeeks = [
         { day: "Domingo das ", time: "" },
@@ -62,7 +62,7 @@ export const SeeMore = ({ handleSeeMore, infoPage }: SeeMoreProps) => {
                     }}
                 >
                     <Icon sx={{
-                        display:"flex",
+                        display: "flex",
                         overflow: "initial",
                         m: "3px"
                     }}>
@@ -81,7 +81,7 @@ export const SeeMore = ({ handleSeeMore, infoPage }: SeeMoreProps) => {
 
                     <Icon sx={{
                         overflow: "initial",
-                        display:"flex",
+                        display: "flex",
                         m: "3px"
                     }}>
                         <IoIosRedo />
@@ -97,7 +97,7 @@ export const SeeMore = ({ handleSeeMore, infoPage }: SeeMoreProps) => {
                 >
                     <Icon sx={{
                         overflow: "initial",
-                        display:"flex",
+                        display: "flex",
                         m: "3px"
                     }}>
                         <FaPhoneAlt />
@@ -112,7 +112,7 @@ export const SeeMore = ({ handleSeeMore, infoPage }: SeeMoreProps) => {
                     }}
                 >
                     <Icon sx={{
-                        display:"flex",
+                        display: "flex",
                         overflow: "initial",
                         m: "3px"
                     }}>
@@ -121,15 +121,15 @@ export const SeeMore = ({ handleSeeMore, infoPage }: SeeMoreProps) => {
                     WhatsApp</Button>
             </Stack>
             <Container sx={{
-                display:"flex",
-                justifyContent:"center", 
-                alignItems:"center"
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
             }}>
                 <Stack
                     spacing={2}
                     mt={2}
                     pb={2}
-                 
+
                     borderBottom="1px solid white">
                     <Box display="flex" gap={1}
                     >
@@ -141,17 +141,39 @@ export const SeeMore = ({ handleSeeMore, infoPage }: SeeMoreProps) => {
                             component="nav"
                             aria-labelledby="nested-list-subheader"
                         >
-                            <ListItemButton onClick={handleClick} sx={{ padding: 0 }}>
-                                <ListItemText >
-                                    <strong>Horarios: </strong><span> {` ${daysWeek.filter((item, index) => index === today)}`}</span>
-                                </ListItemText>
-                                <ListItemIcon color=''>
-                                    {!open ? <IoIosArrowDown color='#FFF' /> : <IoIosArrowUp color='#FFF' />}
-                                </ListItemIcon>
+                            <ListItemButton
+                                onClick={handleClick}
+                                sx={{ padding: 0, display: "flex" }}>
+                                <>
+                                    <Typography
+                                        fontWeight="700"
+                                        component="strong"
+                                        pr={1}
+                                    > Horarios: </Typography>
+                                    <span> {` ${daysWeek.filter((item, index) => index === today)}`}</span>
+                                    <Icon>
+                                        {!open ?
+                                            <IoIosArrowDown
+                                                color={theme.palette.primary.main}
+                                            /> :
+                                            <IoIosArrowUp
+                                                color={theme.palette.primary.main}
+                                            />}
+                                    </Icon>
+                                </>
+
                             </ListItemButton>
-                            <Collapse in={open} timeout="auto" unmountOnExit>
+                            <Collapse
+                                in={open}
+                                timeout="auto"
+                                unmountOnExit>
                                 <List component="div" disablePadding>
-                                    <ListItemButton sx={{ paddingLeft: "1rem", borderLeft: "1px solid white", display: "grid" }}>
+                                    <ListItemButton
+                                        sx={{
+                                            paddingLeft: "1rem",
+                                            borderLeft: "1px solid white",
+                                            display: "grid"
+                                        }}>
                                         {daysWeek.map(item => {
                                             return <ListItemText key={item.slice(4)} primary={item} />
                                         })}

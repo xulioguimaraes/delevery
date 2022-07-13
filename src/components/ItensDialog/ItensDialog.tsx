@@ -29,12 +29,12 @@ export const ItensDialog = ({ itens, start, end, priceItem, setPrice, setDataIte
 
     const [atributsName, setAtributsName] = useState<IAtrinusts[]>([])
     useEffect(() => {
-        const itensAux  = itens.map(item => {
+        const itensAux = itens.map(item => {
             if (item.visible === true) {
                 return { ...item, qtd: 0 }
             }
         }).filter(ev => !!ev)
-        setAtributsName(itensAux as IAtrinusts[]) 
+        setAtributsName(itensAux as IAtrinusts[])
     }, [])
     useEffect(() => {
         const result = atributsName.map(item => {
@@ -95,15 +95,15 @@ export const ItensDialog = ({ itens, start, end, priceItem, setPrice, setDataIte
 
         let reduced: IAtrinusts[] = [];
         dataItensAux.forEach((item) => {
-            let duplicated  = reduced.findIndex(redItem => {
+            let duplicated = reduced.findIndex(redItem => {
                 return item.id == redItem.id;
             }) > -1;
-        
-            if(!duplicated) {
+
+            if (!duplicated) {
                 reduced.push(item);
             }
         });
-        
+
         setDataItens(reduced)
     }, [atributsName])
 
@@ -112,14 +112,19 @@ export const ItensDialog = ({ itens, start, end, priceItem, setPrice, setDataIte
     return (
         <DialogContentText id="alert-dialog-description">
             {itens.map(ev => {
-
                 return <Stack direction="row" justifyContent="space-between" key={ev.id}>
                     <Typography component="span">
                         {ev.name}
                     </Typography>
-                    <Box >
-                        {!!ev?.price && <Typography component="span">
-                            {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(+ev.price)}
+                    <Box py={.5}>
+                        {!!ev?.price && <Typography
+                            paddingRight={1.3}
+                            component="span"
+                        >
+                            {new Intl.NumberFormat('pt-BR', {
+                                style: 'currency',
+                                currency: 'BRL'
+                            }).format(+ev.price)}
                         </Typography>}
                         <Button
                             disabled={(start === total || total === 0) ? true : false}

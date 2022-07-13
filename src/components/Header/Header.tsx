@@ -32,7 +32,7 @@ export const Header = ({ infoPage }: HeaderProps) => {
         <Box
           height="145px"
           overflow="hidden">
-            <CoverPage sx={{bottom:["0", "50%"]}}  src={infoPage.media.cover}/>
+          <CoverPage sx={{ bottom: ["0", "50%"] }} src={infoPage.media.cover} />
         </Box>
 
         <div className={styles.divImgButton}>
@@ -42,10 +42,10 @@ export const Header = ({ infoPage }: HeaderProps) => {
             </button>
           </Link>
         </div>
-    
+
         <MenuHeader />
         <Box
-        mt={0}>
+          mt={0}>
           <Typography
             fontWeight="bold"
             textAlign="center"

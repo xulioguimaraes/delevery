@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material";
 import { grey, red, yellow } from "@mui/material/colors";
-
+import "@fontsource/quicksand"; 
 export const DarkTheme = (colors: string[])=>{
     console.log(colors);
     
@@ -22,8 +22,14 @@ export const DarkTheme = (colors: string[])=>{
             },
             info: {
                 main: grey[900]
+            },grey:{
+                "300": "#4b4b4b"
             }
+            
         },
+        typography:{
+            fontFamily: "Quicksand, sans-serif"
+        }
        
     })
 }

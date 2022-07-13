@@ -22,6 +22,9 @@ export const LightTheme = (colors: string[])=>{
             }),
             divider:grey[800]
         },
+        typography:{
+            fontFamily: "Quicksand, sans-serif"
+        }
         
 
     })

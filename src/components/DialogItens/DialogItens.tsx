@@ -141,10 +141,13 @@ export const DialogItens = ({ modalItens, handleClose, itemModalHandle }: Dialog
                             }}>
                             <Typography
                                 pt={2}
+                                fontWeight="700"
                                 component="h1">
                                 {item.name}
                             </Typography>
-                            <Typography component="p">
+                            <Typography
+                                color="primary"
+                                component="p">
                                 Selecione de {item.qty[0]} a {item.qty[1]}
                             </Typography>
                             <ItensDialog
@@ -197,7 +200,12 @@ export const DialogItens = ({ modalItens, handleClose, itemModalHandle }: Dialog
                         <IoMdAdd />
                     </Button>
                 </Box>
-                <Button startIcon={<IoMdAdd />} variant="contained" color="secondary" onClick={handleCart} autoFocus>
+                <Button
+                    startIcon={<IoMdAdd />}
+                    variant="contained"
+                    color="secondary"
+                    onClick={handleCart}
+                    autoFocus>
 
                     <Typography
                         pr={0.6}

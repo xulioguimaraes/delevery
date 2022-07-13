@@ -50,7 +50,7 @@ export const Spotlight = ({ spotlight, handleItemCatalog }: SpotlightProps) => {
                                         minWidth: 210,
                                     }}
                                     onClick={() => handleItemCatalog(item)}>
-                                    <Promo />
+                                    {/* <Promo /> */}
 
                                     <CardActionArea sx={{
                                         mb: 3

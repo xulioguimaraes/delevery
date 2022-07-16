@@ -47,6 +47,8 @@ export const Spotlight = ({ spotlight, handleItemCatalog }: SpotlightProps) => {
                                     sx={{
                                         position: "relative",
                                         maxWidth: 245,
+                                        border:'1px solid',
+                                        borderColor:theme.palette.grey[300],
                                         minWidth: 210,
                                     }}
                                     onClick={() => handleItemCatalog(item)}>

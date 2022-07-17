@@ -10,6 +10,7 @@ import { AppTypes, ProductsProps, ThemeColorConfigAppTypes } from '../../interfa
 import { useEffect } from 'react'
 import { useThemes } from '../../context/useTheme'
 import { CssBaseline } from '@mui/material'
+import { Loading } from '../../components/Loading/Loading'
 
 
 interface PageDeliveryProps {
@@ -33,6 +34,7 @@ export default function PageDelivery({ page }: PageDeliveryProps) {
             </Head>
             <CssBaseline/>
             <Header infoPage={app}/>
+            <Loading/>
             <ListButtonHome infoButtons={app.config.methods}  slug={slug}/>
             <FooterPage />
         </>

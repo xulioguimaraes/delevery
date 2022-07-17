@@ -11,6 +11,7 @@ import { Catalog } from "../../components/Catalog/Catalog";
 import { NavSearch } from "../../components/NavSearch/NavSearch";
 import { DialogItens } from "../../components/DialogItens/DialogItens";
 import { useThemes } from "../../context/useTheme";
+import { Loading } from "../../components/Loading/Loading";
 interface PageDeliveryProps {
     page: {
         app: AppTypes
@@ -60,11 +61,14 @@ export default function RetirarLocal({ page }: PageDeliveryProps) {
                 <Spotlight spotlight={spotlight} handleItemCatalog={handleItemCatalog} />
                 <Catalog catalog={catalog} handleItemCatalog={handleItemCatalog} />
             </Container>
+            <Loading/>
+
             <NavSearch catalog={catalog} payments={payments} />
             <DialogItens
                 modalItens={modalItens}
                 handleClose={handleClose}
                 itemModalHandle={itemModalHandle} />
+
 
         </>
     )

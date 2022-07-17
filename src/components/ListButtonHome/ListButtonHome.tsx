@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 interface ListButtonHomeProps {
-    infoButtons: [string]
+    infoButtons: string[]
     slug: string
 }
 interface OptionsButtonsTypes {

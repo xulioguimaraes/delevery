@@ -2,7 +2,7 @@ export interface CatalogTypes {
     expanded?: boolean
     name: string,
     id: string
-    methods: [string],
+    methods: string[],
     order: number,
     visible: boolean,
     itens: ItensCatalogTypes[]
@@ -17,7 +17,7 @@ export interface ItensCatalogTypes {
     price: number | string
     description: string
     order: number
-    methods: [string]
+    methods: string[]
     attributes: AttributesItensCatalogTypes[]
 }
 export interface AttributesItensCatalogTypes {
@@ -102,7 +102,7 @@ export interface SocialInfoAppTypes {
     facebook: string
 }
 export interface ConfigAppTypes {
-    methods: [string]
+    methods: string[]
     fee_method: string
     desc_limit: number
     status: string,
@@ -111,7 +111,7 @@ export interface ConfigAppTypes {
     receipts: ReceiptsConfigAppTypes
     after_order: string
     fee: {
-        until: [any]
+        until: any[]
     }
     orders: OrdersConfigAppTypes
     install: InstallConfigAppTypes
@@ -126,14 +126,14 @@ export interface ConfigAppTypes {
     outside: boolean,
     analytics: AnalyticsConfigAppTypes
     catalog_view: boolean,
-    methodsReadOnly: [string],
+    methodsReadOnly: string[],
     accordion: boolean,
     taxes: TaxesConfigAppTypes[],
     fee_nh_id: string
 }
 export interface TaxesConfigAppTypes {
     value: number
-    methods: [string],
+    methods: string[],
     type: string
     name: string
 }
@@ -156,7 +156,7 @@ export interface PrintersConfigAppTypes {
     department: string
 }
 export interface PaymentsConfigAppTypes {
-    creditcard_data: [string]
+    creditcard_data: string[]
     pix: boolean
     pix_data: PixDataPaymentsConfigAppTypes
     money: boolean
